@@ -13,4 +13,8 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
 
+    // 首页banner
+    $router->resource('homeImg','HomeImgController');
+
+    //
 });
