@@ -13,9 +13,13 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
 
+    // 配置文件
+    $router->resource('config','ConfigController');
+
     // 首页-banner
     $router->resource('homeImg','HomeImgController');
 
-    //首页-小图标
+    // 首页-小图标
     $router->resource('homexiao','HomeXiaoController');
+
 });
