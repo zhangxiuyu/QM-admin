@@ -3,7 +3,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\ConfigImg;
+use App\Admin\Ations\GoodsTypeE;
+use App\Model\GoodsType;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -15,33 +16,40 @@ class HomeXiaoController extends AdminController
 
     protected function grid()
     {
-        $grid = new Grid(new ConfigImg());
+        $grid = new Grid(new GoodsType());
         $grid->model()->where([
             'status'=>1,
-            'type' =>2
+            'pid' => null
         ])->orderBy('sort','DESC');
         $grid->column('id', 'ID');
         $grid->column('name', '名称')->editable();
         $grid->column('img','图片')->image();
         $grid->column('sort','排序')->editable()->sortable();
+
+        $grid->actions(function ($actions) {
+
+            //  去掉删除
+            $actions->disableDelete();
+            //  下级分类
+            $actions->add(new GoodsTypeE());
+        });
         return $grid;
     }
 
     protected function form()
     {
-        $form = new Form(new ConfigImg());
+        $form = new Form(new GoodsType());
 
         $form->text('name', '名称');
         $form->text('sort', '排序');
         $form->image('img', '图片');
-        $form->hidden('type')->value(2);
 
         return $form;
     }
 
     protected function detail($id)
     {
-        $show = new Show(ConfigImg::findOrFail($id));
+        $show = new Show(GoodsType::findOrFail($id));
         $show->field('name',"名称");
         $show->field('sort',"排序");
         $show->field('img',"图片")->image();

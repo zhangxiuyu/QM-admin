@@ -66,7 +66,7 @@ if (!function_exists('delCache')) {
  *
  */
 if (!function_exists('write_log')) {
-    function write_log($data, String $file_name = '', String $directory = '')
+    function write_log($data, String $file_name, String $directory = '')
     {
         $basePath = './../storage/logs/';
 
