@@ -27,6 +27,10 @@ Route::group([
 
     // 分类
     $router->get('goodsType','GoodsTypeController@goodsType');
+    $router->get('goodsTypeXiao','GoodsController@goodsTypeXiao');
+
+
+
     // 分类新增
     $router->get('createType/{courseId}/{name}','GoodsTypeController@createType');
     // 修改

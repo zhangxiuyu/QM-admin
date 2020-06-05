@@ -31,4 +31,42 @@ class GoodsController extends Controller
         return api_success('',$list);
     }
 
+    public function getOne(Goods $goods)
+    {
+        $goods_id = request('goods_id');
+        $data = $goods->find($goods_id);
+        $img = [];
+        foreach ($data['pictures'] as $ke => $va){
+            $img[] = [
+                'id' => $ke,
+                'img' => getImg($va),
+            ];
+        }
+        $data['img'] = $img;
+        return api_success('',$data);
+    }
+
+
+    public function getGoodsList(Goods $goods)
+    {
+        $type_id = request('type_id');
+        $data = $goods->where([
+            'type' => $type_id,
+            'status' => 1,
+        ])->limit(100)->get();
+        $list = [];
+        foreach ($data as $var){
+            $list[] = [
+              'goods_id' => $var->id,
+              'name' => $var->name,
+              'price' => $var->prices,
+              'slogan' => '',
+              'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
+            ];
+        }
+
+        return api_success('',$list);
+    }
+
+
 }

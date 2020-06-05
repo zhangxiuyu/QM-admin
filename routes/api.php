@@ -28,4 +28,14 @@ Route::namespace('Api')->group(function (){
     // 首页商品
     Route::get('getHomeGoods','GoodsController@getHomeGoods');
 
+
+    // 商品分类
+    Route::get('getGoodsType','GoodsTypeController@getGoodsType');
+
+    // 商品详情
+    Route::get('getGoodsOne','GoodsController@getOne');
+
+
+    // 商品-分类-列表
+    Route::get('getGoodsList','GoodsController@getGoodsList');
 });

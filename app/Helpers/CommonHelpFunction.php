@@ -57,6 +57,15 @@ if (!function_exists('delCache')) {
     }
 }
 
+if (!function_exists('getImg')) {
+    function getImg($img)
+    {
+        if (empty($img)) return;
+       return getenv('APP_URL').'/upload/' . $img;
+    }
+}
+
+
 /*
  *  写入日志数据
  *  @author zhenhong~
