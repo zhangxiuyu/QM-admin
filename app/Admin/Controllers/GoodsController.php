@@ -93,6 +93,8 @@ class GoodsController extends AdminController
         $form->select('ftype','分类')->options($list)->load('type','/admin/goodsTypeXiao');
         $form->select('type','商品分类');
 
+        $form->UEditor('div','详情');
+
         //保存前回调
         $form->saving(function (Form $form) {
             $goods_type = new GoodsType();

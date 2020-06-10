@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "codingyu/laravel-ueditor": "~2.0",
+        "codingyu/ueditor": "^3.0",
         "encore/laravel-admin": "^1.8",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
