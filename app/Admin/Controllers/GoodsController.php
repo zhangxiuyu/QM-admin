@@ -4,13 +4,11 @@
 namespace App\Admin\Controllers;
 
 
-use App\Model\ConfigImg;
 use App\Model\Goods;
 use App\Model\GoodsType;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Grid\Tools\QuickCreate;
 use Encore\Admin\Show;
 
 class GoodsController extends AdminController
