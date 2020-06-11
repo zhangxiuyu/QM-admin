@@ -36,7 +36,6 @@ Route::group([
     // 修改
     $router->get('editType/{courseId}/{name}','GoodsTypeController@editType');
 
-    //  创建/修改 课程视频
-    $router->any('handleCreate/{course_id}/{jump}', 'GoodsTypeController@handleCreate');
+
 
 });

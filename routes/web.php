@@ -11,6 +11,6 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return '测试中， 请稍后访问！ QQ联系：1292460369';
+});
