@@ -50,10 +50,18 @@ class GoodsController extends Controller
     public function getGoodsList(Goods $goods)
     {
         $type_id = request('type_id');
-        $data = $goods->where([
-            'type' => $type_id,
-            'status' => 1,
-        ])->limit(100)->get();
+        $fid = request('fid');
+        if (!empty($fid)){
+            $data = $goods->where([
+                'ftype' => $fid,
+                'status' => 1,
+            ])->limit(100)->get();
+        }else{
+            $data = $goods->where([
+                'type' => $type_id,
+                'status' => 1,
+            ])->limit(100)->get();
+        }
         $list = [];
         foreach ($data as $var){
             $list[] = [
