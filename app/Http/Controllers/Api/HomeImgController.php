@@ -29,7 +29,7 @@ class HomeImgController extends Controller
         $data = $goodsType->where([
             'status' => 1,
             'pid' => null,
-        ])->orderBy('sort','desc')->select('img','name')->get();
+        ])->orderBy('sort','desc')->select('id','img','name')->get();
         foreach ($data as &$va){
             $va['img'] = getenv('APP_URL').'/upload/'.$va['img'];
         }
