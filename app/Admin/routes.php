@@ -36,6 +36,9 @@ Route::group([
     // 修改
     $router->get('editType/{courseId}/{name}','GoodsTypeController@editType');
 
+    $router->post('handleCreate/{courseId}/{name}','GoodsTypeController@handleCreate');
+    $router->put('handleCreate/{courseId}/{name}','GoodsTypeController@handleCreate');
+
 
 
 });
