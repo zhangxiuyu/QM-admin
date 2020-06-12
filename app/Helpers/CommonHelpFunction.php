@@ -57,13 +57,33 @@ if (!function_exists('delCache')) {
     }
 }
 
+/**
+ * 半路径 返回 全路径
+ */
 if (!function_exists('getImg')) {
-    function getImg($img)
-    {
-        if (empty($img)) return;
-       return getenv('APP_URL').'/upload/' . $img;
+    function getImg($img){
+        if (empty($img)) return '';
+        if (substr($img, 0,1) == '/'){
+            return getenv('APP_URL').'/upload' . $img;
+        }else{
+            return getenv('APP_URL').'/upload/' . $img;
+        }
     }
 }
+
+/**
+ *  生成缩略图
+ */
+if (!function_exists('slImg')) {
+    function slImg($img){
+        if (empty($img)) return '';
+        // 生成订单
+
+
+
+    }
+}
+
 
 
 /*

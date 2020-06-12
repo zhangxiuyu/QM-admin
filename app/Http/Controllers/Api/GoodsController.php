@@ -37,6 +37,8 @@ class GoodsController extends Controller
         $data = $goods->find($goods_id);
         $img = [];
         foreach ($data['pictures'] as $ke => $va){
+            // 这里生成缩略图
+
             $img[] = [
                 'id' => $ke,
                 'img' => getImg($va),
