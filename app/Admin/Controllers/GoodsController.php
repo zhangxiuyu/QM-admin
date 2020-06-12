@@ -4,13 +4,11 @@
 namespace App\Admin\Controllers;
 
 
-use App\Model\ConfigImg;
 use App\Model\Goods;
 use App\Model\GoodsType;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Grid\Tools\QuickCreate;
 use Encore\Admin\Show;
 
 class GoodsController extends AdminController
@@ -67,6 +65,11 @@ class GoodsController extends AdminController
 
     protected function form()
     {
+
+
+
+
+
         $form = new Form(new Goods());
 
         $form->text('name', '商品名称');
@@ -79,7 +82,7 @@ class GoodsController extends AdminController
 
         $form->switch('top', '首页是否展示')->states($states);
 
-        $form->multipleImage('pictures', '图片')->removable()->sortable();
+        $form->multipleImage('pictures', '图片')->removable()->sortable()->uniqueName()->thumbnail('small', $width = 300, $height = 300);;
         $list = [];
         $GoodsType = new GoodsType();
         $type = $GoodsType->where([
@@ -90,16 +93,45 @@ class GoodsController extends AdminController
             $list[$value->id] = $value->name;
         }
 
-        $form->select('ftype','分类')->options($list)->load('type','/admin/goodsTypeXiao');
-        $form->select('type','商品分类');
+        if ($form->isEditing()){
+            $id = request()->route()->parameters();
+            $model = $form->model()->find($id['good']);
+            $lists = [];
+            $types = $GoodsType->where([
+                'status'=>1,
+                'pid' => $model->ftype
+            ])->select('name','id')->get();
+            $one = [];
+            foreach ($types as $va){
+                if ($va->id == $model->type){
+                    $one['id'] = $va->id;
+                    $one['name'] = $va->name;
+                }else{
+                    $lists[$va->id] = $va->name;
+                }
+            }
+
+            $lists[$one['id']] = $one['name'];
+
+            $form->select('ftype','分类')->options($list)->load('type','/admin/goodsTypeXiao');
+            $form->select('type','商品分类')->options($lists);
+        }else{
+            $form->select('ftype','分类')->options($list)->load('type','/admin/goodsTypeXiao');
+            $form->select('type','商品分类');
+        }
+
 
         $form->UEditor('div','详情');
 
         //保存前回调
         $form->saving(function (Form $form) {
-            $goods_type = new GoodsType();
-            $form->type = $goods_type->where('name',$form->type)->value('id');
+            if (!$form->isEditing()){
+                $goods_type = new GoodsType();
+                $form->type = $goods_type->where('name',$form->type)->value('id');
+            }
         });
+
+
         return $form;
     }
 

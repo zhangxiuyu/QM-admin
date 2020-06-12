@@ -102,7 +102,7 @@ class GoodsTypeController extends AdminController
         $form->setAction('/admin/handleCreate/' . $pid . '/' . $name);
         $form->text('name', '名称');
         $form->text('sort', '排序');
-        $form->image('img', '图片');
+        $form->image('img', '图片')->uniqueName();
         if (!empty($id)) {
             $form->hidden('id')->default($id);
         }
@@ -131,7 +131,6 @@ class GoodsTypeController extends AdminController
 
 
     /**
-     *  @author zhenhong~
      *  @description 处理 新增/修改请求
      */
     public function handleCreate($course_id, $jump)

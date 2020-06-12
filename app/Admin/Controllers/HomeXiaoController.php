@@ -42,7 +42,7 @@ class HomeXiaoController extends AdminController
 
         $form->text('name', '名称');
         $form->text('sort', '排序');
-        $form->image('img', '图片');
+        $form->image('img', '图片')->uniqueName();
 
         return $form;
     }
