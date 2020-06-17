@@ -5,19 +5,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Model\UserItems;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class UserController extends Controller
 {
     public function userCode()
     {
-        $code = request('code');
-        $username = request('username');
-        $avatar = request('avatarUrl');
-        if (empty($code)) {
-            return api_error('缺少参数！');
-        }
-        $appId = 'wx67110bd6dbd629e5';
-        $appSecret = '4993acd974cc5f7c2c7f5905e2f50afc';
+//        $code = request('code');
+//        $username = request('username');
+//        $avatar = request('avatarUrl');
+//        if (empty($code)) {
+//            return api_error('缺少参数！');
+//        }
+//        $appId = 'wx67110bd6dbd629e5';
+//        $appSecret = '4993acd974cc5f7c2c7f5905e2f50afc';
 
 
         // 获取 access_token
@@ -26,9 +28,9 @@ class UserController extends Controller
 //        $access_token = $access_token_array['access_token'];
 
         // 获取用户openid
-        $codeSession_url = "https://api.weixin.qq.com/sns/jscode2session?appid={$appId}&secret={$appSecret}&js_code={$code}&grant_type=authorization_code";
-        $codeSession_array = get_curl($codeSession_url,[]);
-        $openid = !empty($codeSession_array['openid'])?$codeSession_array['openid']:'';
+//        $codeSession_url = "https://api.weixin.qq.com/sns/jscode2session?appid={$appId}&secret={$appSecret}&js_code={$code}&grant_type=authorization_code";
+//        $codeSession_array = get_curl($codeSession_url,[]);
+//        $openid = !empty($codeSession_array['openid'])?$codeSession_array['openid']:'';
 
 //        $userinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token={$access_token}&openid={$openid}&lang=zh_CN";
 //        $userinfo =get_curl($userinfo_url,[]);
@@ -40,14 +42,19 @@ class UserController extends Controller
 //        $useritem = UserItems::firstOrCreate(['openid' => $userinfo['unionid']], ['openid' => $userinfo['unionid'], 'nickname' => $userinfo['nickname'], 'avatar' => $userinfo['headimgurl'], 'created_at' => time()]);
 //        $payload = JWTFactory::customClaims(['sub' => $useritem])->make();
 //        try {
+        $username = '123';
+        $avatar = '';
+        $openid = 'ooKa25IkVlUd6CtpEtP9VIFcj5uw';
         if (!empty($openid)){
             $useritems = UserItems::firstOrCreate(['openid'=> $openid],[
                 'openid' => $openid,
                 'username' => $username,
                 'avatar' => $avatar,
             ]);
-//            $token = auth('api')->attempt($useritems);
-            return api_success('注册成功！');
+            $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
+
+            $token = JWTAuth::encode($payload)->get();
+            return api_success('注册成功！',$token);
         }
 
 //        }catch (\Exception $e){
@@ -55,5 +62,11 @@ class UserController extends Controller
 //        }
 
 
+    }
+
+
+    public function userCodedata()
+    {
+        return 111;
     }
 }
