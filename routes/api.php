@@ -40,8 +40,11 @@ Route::namespace('Api')->group(function (){
     Route::get('getGoodsList','GoodsController@getGoodsList');
 
 
-    // 小程序登录
+    // 手办-小程序登录
     Route::post('userCode','UserController@userCode');
+
+    // 日记-小程序
+    Route::post('diaryUserCode','UserController@diaryUserCode');
 
     Route::group([
         'middleware' => ['jwt']
