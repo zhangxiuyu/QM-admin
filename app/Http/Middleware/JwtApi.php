@@ -28,9 +28,9 @@ class JwtApi
 
             return $next($request);
         } catch (TokenExpiredException $e) {		//	JWT 提供的token时间过期异常类
-            return api_error('验证失败，token过期');
+            return api_response(202, $data = [], '验证失败，token过期');
         } catch (JWTException $e) {		            //	JWT 提供的token无效异常类
-            return api_error( '验证失败, token无效');
+            return api_response(202, $data = [], '验证失败, token无效');
         }
     }
 }

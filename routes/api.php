@@ -52,6 +52,9 @@ Route::namespace('Api')->group(function (){
         // https://www.cnblogs.com/fstimers/p/12482516.html  线上更新数据
         Route::post('userCodedata','UserController@userCodedata');
 
+        // 日记添加
+        Route::post('diaryAdd','DiaryController@diaryAdd');
+
     });
 
 });
