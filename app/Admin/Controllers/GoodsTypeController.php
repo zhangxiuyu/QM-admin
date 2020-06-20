@@ -141,17 +141,16 @@ class GoodsTypeController extends AdminController
             $data = request()->all();
 
             $file = request()->file('img');
-            $folder_name = "upload/images/avatars/" . date("Ym/d", time());
-            $upload_path = public_path() . '/' . $folder_name;
+            $folder_name = "images/avatars/" . date("Ym/d", time());
+            $upload_path = public_path() . '/upload/' . $folder_name;
             $extension  =  strtolower($file->getClientOriginalExtension())  ?:  'png';
             $filename = time() . '.' .  $extension;
             $file->move($upload_path, $filename);
-            $path = substr($upload_path,strripos($upload_path,"upload")+6);
             $goodsType = new GoodsType();
             $goodsType->name = $data['name'];
             $goodsType->pid = $course_id;
             $goodsType->sort = $data['sort'];
-            $goodsType->img = $path.'/'.$filename;
+            $goodsType->img = $folder_name.'/'.$filename;
 
             $bool = $goodsType->save();
 
@@ -172,13 +171,12 @@ class GoodsTypeController extends AdminController
 
             if (isset($data['img'])) {
                 $file = request()->file('img');
-                $folder_name = "upload/images/avatars/" . date("Ym/d", time());
-                $upload_path = public_path() . '/' . $folder_name;
+                $folder_name = "images/avatars/" . date("Ym/d", time());
+                $upload_path = public_path() . '/upload/' . $folder_name;
                 $extension  =  strtolower($file->getClientOriginalExtension())  ?:  'png';
                 $filename = time() . '.' .  $extension;
                 $file->move($upload_path, $filename);
-                $path = substr($upload_path,strripos($upload_path,"public")+6);
-                $GoodsType->img = $path.'/'.$filename;
+                $GoodsType->img = $folder_name.'/'.$filename;
             }
 
             $GoodsType->name = $data['name'];
