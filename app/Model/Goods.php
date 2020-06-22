@@ -35,6 +35,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Model\ConfigImg withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Model\ConfigImg withoutTrashed()
  * @mixin \Eloquent
+ * @property string $pictures
+ * @property float $prices
+ * @property int $top
+ * @property string|null $div
+ * @property int|null $ftype
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Goods whereDiv($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Goods whereFtype($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Goods wherePictures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Goods wherePrices($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\Goods whereTop($value)
  */
 class Goods extends Model
 {

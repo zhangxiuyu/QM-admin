@@ -28,17 +28,14 @@ Route::namespace('Api')->group(function (){
     // 首页商品
     Route::get('getHomeGoods','GoodsController@getHomeGoods');
 
-
     // 商品分类
     Route::get('getGoodsType','GoodsTypeController@getGoodsType');
 
     // 商品详情
     Route::get('getGoodsOne','GoodsController@getOne');
 
-
     // 商品-分类-列表
     Route::get('getGoodsList','GoodsController@getGoodsList');
-
 
     // 手办-小程序登录
     Route::post('userCode','UserController@userCode');
@@ -52,8 +49,22 @@ Route::namespace('Api')->group(function (){
         // https://www.cnblogs.com/fstimers/p/12482516.html  线上更新数据
         Route::post('userCodedata','UserController@userCodedata');
 
-        // 日记添加
+        // 日记-添加
         Route::post('diaryAdd','DiaryController@diaryAdd');
+
+        // 日记-修改
+        Route::post('diaryEdit','DiaryController@diaryEdit');
+
+        // 日记-删除
+        Route::post('diaryDel','DiaryController@diaryDel');
+
+        // 日记-详情
+        Route::post('diaryGet','DiaryController@diaryGet');
+
+        // 日记-列表
+        Route::get('diaryList','DiaryController@diaryList');
+
+
 
     });
 

@@ -8,6 +8,28 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * App\Model\UserItems
+ *
+ * @property int $id
+ * @property string|null $openid
+ * @property string|null $username
+ * @property string|null $avatar
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereOpenid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereUsername($value)
+ * @mixin \Eloquent
+ */
 class UserItems  extends Authenticatable implements JWTSubject    # 这里别忘了加
 {
 
