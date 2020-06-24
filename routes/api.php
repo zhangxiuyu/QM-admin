@@ -37,6 +37,9 @@ Route::namespace('Api')->group(function (){
     // 商品-分类-列表
     Route::get('getGoodsList','GoodsController@getGoodsList');
 
+    // 商品搜索
+    Route::get('getSearchGoods','GoodsController@getSearchGoods');
+
     // 手办-小程序登录
     Route::post('userCode','UserController@userCode');
 

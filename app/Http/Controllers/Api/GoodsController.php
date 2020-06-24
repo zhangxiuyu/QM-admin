@@ -107,4 +107,22 @@ class GoodsController extends Controller
     }
 
 
+    public function getSearchGoods(Goods $goods)
+    {
+        $s_name = request('s_name');
+        $data = $goods->where('name','like' , "%".$s_name."%")->where(['status' => 1])->limit(100)->get();
+        $list = [];
+        foreach ($data as $var){
+            $list[] = [
+                'goods_id' => $var->id,
+                'name' => $var->name,
+                'price' => $var->prices,
+                'slogan' => '',
+                'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
+            ];
+        }
+        return api_success('',$list);
+    }
+
+
 }
