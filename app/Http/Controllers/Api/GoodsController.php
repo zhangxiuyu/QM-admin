@@ -107,6 +107,11 @@ class GoodsController extends Controller
     }
 
 
+    /**
+     * 商品搜索
+     * @param Goods $goods
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getSearchGoods(Goods $goods)
     {
         $s_name = request('s_name');
