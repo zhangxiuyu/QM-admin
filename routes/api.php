@@ -27,6 +27,8 @@ Route::namespace('Api')->group(function (){
 
     // 首页商品
     Route::get('getHomeGoods','GoodsController@getHomeGoods');
+    // 首页商品-分页
+    Route::get('getGoodsPage','GoodsController@getGoodsPage');
 
     // 商品分类
     Route::get('getGoodsType','GoodsTypeController@getGoodsType');

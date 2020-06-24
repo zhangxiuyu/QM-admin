@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Cache;
 class GoodsController extends Controller
 {
 
-    private $cache_time = 10; //缓存时间
+    private $cache_time = 10; // 缓存时间
+
+    private $add_prices = 45; // 加的金额
 
     public function getHomeGoods(Goods $goods)
     {
@@ -38,6 +40,40 @@ class GoodsController extends Controller
         return api_success('',$list);
     }
 
+    /**
+     * 首页商品-有分页
+     * @param Goods $goods
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getGoodsPage(Goods $goods)
+    {
+        $lists = Cache::remember('getHomeGoods_'. request('page'),$this->cache_time,function () use ($goods){
+            $list = $goods->where([
+                'top'=>1,
+            ])->select(
+                'id',
+                'name',
+                'prices',
+                'pictures'
+            )->paginate()->toArray();
+            foreach ($list['data'] as &$value){
+                $pictures=[];
+                foreach ($value['pictures'] as $ke => $v){
+                    $pictures[$ke] = getenv('APP_URL').'/upload/'.$v;
+                }
+                unset($value['pictures']);
+                $value['img'] = empty($pictures[0])?'':$pictures[0];
+//                $value['slogan'] = '指导价：'.($value['prices'] + $this->add_prices);
+                $value['slogan'] = '';
+            }
+            $lists['lists'] = $list['data'];
+            $lists['total'] = $list['total'];
+            return $lists;
+        });
+
+        return api_success('',$lists);
+    }
+
     public function getOne(Goods $goods)
     {
         $goods_id = request('goods_id');
@@ -45,14 +81,13 @@ class GoodsController extends Controller
             $data = $goods->find($goods_id);
             $img = [];
             foreach ($data['pictures'] as $ke => $va){
-                // 这里生成缩略图
-
                 $img[] = [
                     'id' => $ke,
                     'img' => getImg($va),
                 ];
             }
             $data['img'] = $img;
+//            $data['div'] = "<span style='color: orange'> 想要这个手办吗？ 请点击 《我的》->《联系秀秀》".$data['div'];
             return $data;
         });
 
@@ -77,6 +112,7 @@ class GoodsController extends Controller
                         'name' => $var->name,
                         'price' => $var->prices,
                         'slogan' => '',
+//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
                         'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
                     ];
                 }
@@ -96,6 +132,7 @@ class GoodsController extends Controller
                         'name' => $var->name,
                         'price' => $var->prices,
                         'slogan' => '',
+//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
                         'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
                     ];
                 }
@@ -123,6 +160,7 @@ class GoodsController extends Controller
                 'name' => $var->name,
                 'price' => $var->prices,
                 'slogan' => '',
+//                'slogan' => '指导价：'.($var->prices + $this->add_prices),
                 'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
             ];
         }
