@@ -101,7 +101,7 @@ class GoodsController extends Controller
         $type_id = request('type_id');
         $fid = request('fid');
         if (!empty($fid)){
-//            $lists = Cache::remember('getGoodsList_'.$fid,$this->cache_time,function () use ($goods,$fid){
+            $lists = Cache::remember('getGoodsList_'.$fid,$this->cache_time,function () use ($goods,$fid){
                 $per_page = request('per_page',4);
 
                 $data = $goods->where([
@@ -121,8 +121,8 @@ class GoodsController extends Controller
                 }
                 $lists['lists'] = $list;
                 $lists['total'] = ceil($data['total'] / $per_page);
-//                return $lists;
-//            });
+                return $lists;
+            });
 
         }else{
             $lists = Cache::remember('getGoodsList_type_'.$type_id,$this->cache_time,function () use ($goods,$type_id){
