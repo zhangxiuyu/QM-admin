@@ -13,7 +13,7 @@ class GoodsController extends Controller
 
     private $cache_time = 10; // 缓存时间
 
-    private $add_prices = 45; // 加的金额
+    private $add_prices = 65; // 加的金额
 
     public function getHomeGoods(Goods $goods)
     {
@@ -25,7 +25,7 @@ class GoodsController extends Controller
                 'name',
                 'prices',
                 'pictures'
-            )->limit(40)->get();
+            )->limit(60)->get();
             foreach ($list as &$value){
                 $pictures=[];
                 foreach ($value->pictures as $ke => $v){
@@ -48,7 +48,7 @@ class GoodsController extends Controller
     public function getGoodsPage(Goods $goods)
     {
         $lists = Cache::remember('getHomeGoods_'. request('page'),$this->cache_time,function () use ($goods){
-            $per_page = request('per_page',4);
+            $per_page = request('per_page',6);
             $list = $goods->where([
                 'top'=>1,
             ])->select(
@@ -102,7 +102,7 @@ class GoodsController extends Controller
         $fid = request('fid');
         if (!empty($fid)){
             $lists = Cache::remember('getGoodsList_'.$fid,$this->cache_time,function () use ($goods,$fid){
-                $per_page = request('per_page',4);
+                $per_page = request('per_page',6);
 
                 $data = $goods->where([
                     'ftype' => $fid,
@@ -126,7 +126,7 @@ class GoodsController extends Controller
 
         }else{
             $lists = Cache::remember('getGoodsList_type_'.$type_id,$this->cache_time,function () use ($goods,$type_id){
-                $per_page = request('per_page',4);
+                $per_page = request('per_page',6);
                 $data = $goods->where([
                     'type' => $type_id,
                     'status' => 1,
