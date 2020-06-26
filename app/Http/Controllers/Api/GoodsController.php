@@ -103,7 +103,7 @@ class GoodsController extends Controller
         $per_page = request('per_page',6);
 
         if (!empty($fid)){
-            $lists = Cache::remember('getGoodsList_'.$fid.'_'.$per_page,$this->cache_time,function () use ($goods,$fid,$per_page){
+            $lists = Cache::remember('getGoodsList_'.$fid.'_'.request('page'),$this->cache_time,function () use ($goods,$fid,$per_page){
 
                 $data = $goods->where([
                     'ftype' => $fid,
@@ -126,11 +126,12 @@ class GoodsController extends Controller
             });
 
         }else{
-            $lists = Cache::remember('getGoodsList_type_'.$type_id.'_'.$per_page,$this->cache_time,function () use ($goods,$type_id,$per_page){
+            $lists = Cache::remember('getGoodsList_type_'.$type_id.'_'.request('page'),$this->cache_time,function () use ($goods,$type_id,$per_page){
                 $data = $goods->where([
                     'type' => $type_id,
                     'status' => 1,
                 ])->paginate($per_page)->toArray();
+                $list = [];
                 foreach ($data['data'] as $var){
                     $list[] = [
                         'goods_id' => $var['id'],
