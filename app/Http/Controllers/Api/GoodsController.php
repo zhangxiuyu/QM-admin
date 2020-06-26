@@ -100,9 +100,10 @@ class GoodsController extends Controller
     {
         $type_id = request('type_id');
         $fid = request('fid');
+        $per_page = request('per_page',6);
+
         if (!empty($fid)){
-            $lists = Cache::remember('getGoodsList_'.$fid,$this->cache_time,function () use ($goods,$fid){
-                $per_page = request('per_page',6);
+            $lists = Cache::remember('getGoodsList_'.$fid.'_'.$per_page,$this->cache_time,function () use ($goods,$fid,$per_page){
 
                 $data = $goods->where([
                     'ftype' => $fid,
@@ -125,8 +126,7 @@ class GoodsController extends Controller
             });
 
         }else{
-            $lists = Cache::remember('getGoodsList_type_'.$type_id,$this->cache_time,function () use ($goods,$type_id){
-                $per_page = request('per_page',6);
+            $lists = Cache::remember('getGoodsList_type_'.$type_id.'_'.$per_page,$this->cache_time,function () use ($goods,$type_id,$per_page){
                 $data = $goods->where([
                     'type' => $type_id,
                     'status' => 1,
