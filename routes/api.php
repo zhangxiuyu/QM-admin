@@ -38,6 +38,8 @@ Route::namespace('Api')->group(function (){
 
     // 商品-分类-列表
     Route::get('getGoodsList','GoodsController@getGoodsList');
+    // 商品-分类-列表-分页
+    Route::get('getGoodsListPage','GoodsController@getGoodsListPage');
 
     // 商品搜索
     Route::get('getSearchGoods','GoodsController@getSearchGoods');

@@ -13,7 +13,7 @@ class GoodsController extends Controller
 
     private $cache_time = 10; // 缓存时间
 
-    private $add_prices = 45; // 加的金额
+    private $add_prices = 65; // 加的金额
 
     public function getHomeGoods(Goods $goods)
     {
@@ -25,7 +25,7 @@ class GoodsController extends Controller
                 'name',
                 'prices',
                 'pictures'
-            )->limit(40)->get();
+            )->limit(60)->get();
             foreach ($list as &$value){
                 $pictures=[];
                 foreach ($value->pictures as $ke => $v){
@@ -48,6 +48,7 @@ class GoodsController extends Controller
     public function getGoodsPage(Goods $goods)
     {
         $lists = Cache::remember('getHomeGoods_'. request('page'),$this->cache_time,function () use ($goods){
+            $per_page = request('per_page',6);
             $list = $goods->where([
                 'top'=>1,
             ])->select(
@@ -55,7 +56,7 @@ class GoodsController extends Controller
                 'name',
                 'prices',
                 'pictures'
-            )->paginate()->toArray();
+            )->paginate($per_page)->toArray();
             foreach ($list['data'] as &$value){
                 $pictures=[];
                 foreach ($value['pictures'] as $ke => $v){
@@ -67,7 +68,7 @@ class GoodsController extends Controller
                 $value['slogan'] = '';
             }
             $lists['lists'] = $list['data'];
-            $lists['total'] = $list['total'];
+            $lists['total'] = ceil($list['total'] / $per_page);
             return $lists;
         });
 
@@ -94,6 +95,61 @@ class GoodsController extends Controller
         return api_success('',$data);
     }
 
+
+    public function getGoodsListPage(Goods $goods)
+    {
+        $type_id = request('type_id');
+        $fid = request('fid');
+        $per_page = request('per_page',6);
+
+        if (!empty($fid)){
+            $lists = Cache::remember('getGoodsList_'.$fid.'_'.request('page'),$this->cache_time,function () use ($goods,$fid,$per_page){
+
+                $data = $goods->where([
+                    'ftype' => $fid,
+                    'status' => 1,
+                ])->paginate($per_page)->toArray();
+                $list = [];
+                foreach ($data['data'] as $var){
+                    $list[] = [
+                        'goods_id' => $var['id'],
+                        'name' => $var['name'],
+                        'price' => $var['prices'],
+                        'slogan' => '',
+//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+                        'img' => !empty($var['pictures'][0])?getImg($var['pictures'][0]):'',
+                    ];
+                }
+                $lists['lists'] = $list;
+                $lists['total'] = ceil($data['total'] / $per_page);
+                return $lists;
+            });
+
+        }else{
+            $lists = Cache::remember('getGoodsList_type_'.$type_id.'_'.request('page'),$this->cache_time,function () use ($goods,$type_id,$per_page){
+                $data = $goods->where([
+                    'type' => $type_id,
+                    'status' => 1,
+                ])->paginate($per_page)->toArray();
+                $list = [];
+                foreach ($data['data'] as $var){
+                    $list[] = [
+                        'goods_id' => $var['id'],
+                        'name' => $var['name'],
+                        'price' => $var['prices'],
+                        'slogan' => '',
+//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+                        'img' => !empty($var['pictures'][0])?getImg($var['pictures'][0]):'',
+                    ];
+                }
+                $lists['lists'] = $list;
+                $lists['total'] = ceil($data['total'] / $per_page);
+                return $lists;
+            });
+        }
+
+        return api_success('',$lists);
+    }
 
     public function getGoodsList(Goods $goods)
     {
