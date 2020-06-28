@@ -30,7 +30,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Model\UserItems whereUsername($value)
  * @mixin \Eloquent
  */
-class UserItems  extends Authenticatable implements JWTSubject    # 这里别忘了加
+class UserItems  extends Authenticatable implements JWTSubject
 {
 
     use Notifiable;
@@ -60,6 +60,11 @@ class UserItems  extends Authenticatable implements JWTSubject    # 这里别忘
     }
 
 
+    // 日记
+    public function LiveChat()
+    {
+        return $this->hasMany(Diary::class, "user_id", "id");
+    }
 
 
 

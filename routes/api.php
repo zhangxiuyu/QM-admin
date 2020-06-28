@@ -45,8 +45,14 @@ Route::namespace('Api')->group(function (){
     // 手办-小程序登录
     Route::post('userCode','UserController@userCode');
 
-    // 日记-小程序
+    // 日记-小程序-用户登录
     Route::post('diaryUserCode','UserController@diaryUserCode');
+
+    // 日记-首页 日记
+    Route::get('homeDiary','HomeDiaryController@indexList');
+
+    // 日记-公共详情
+    Route::get('getDetail','HomeDiaryController@getDetail');
 
     Route::group([
         'middleware' => ['jwt']

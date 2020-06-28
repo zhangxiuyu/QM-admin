@@ -12,14 +12,22 @@ use Illuminate\Support\Facades\DB;
 class DiaryController extends Controller
 {
 
+    /**
+     * 我的日记列表
+     * @param Request $request
+     * @param Diary $diary
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function diaryList(Request $request,Diary $diary)
     {
         $page = request('page',1);
-        $last_page = request('last_page',2); // 获取两天的
+        $last_page = request('last_page',3); // 获取两天的
         $user = $request->attributes->get('user_info');
 
         // 这里要分页，先获取时间列表
-        $diaryList = DB::select("SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as date from  diary where user_id = {$user->id} AND deleted_at IS NULL GROUP BY DATE_FORMAT(created_at,'%Y-%m-%d')");
+        $diaryList = DB::select("SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as date from  diary where user_id = {$user->id} AND deleted_at IS NULL  GROUP BY  DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY date desc");
+
+
         // 总页数
         $total = ceil(count($diaryList) / $last_page);
         if ($page > $total) $page = $total;
@@ -31,13 +39,18 @@ class DiaryController extends Controller
 
         $list = [];
         for ($i=$s_page;$i<$e_page;$i++){
+            if (empty($diaryList[$i])){
+                continue;
+            }
             $list[] = [
               'diary_date' => $diaryList[$i]->date,
               'list' => Db::select("SELECT DATE_FORMAT(created_at,'%H:%i:%s') as created_at,id,title FROM diary WHERE ( datediff ( created_at ,'{$diaryList[$i]->date}') = 0 ) AND user_id = {$user->id} AND deleted_at IS NULL")
             ];
         }
+        $lists['lists'] = $list;
+        $lists['total'] = $total;
 
-        return api_success('',$list);
+        return api_success('',$lists);
     }
 
 
@@ -67,6 +80,7 @@ class DiaryController extends Controller
             $diary->user_id = $user->id;
             $diary->html = request('html');
             $diary->title = request('title');
+            $diary->public = request('public');
             $diary->save();
             return api_success();
         } catch (\Exception $e) {
@@ -99,6 +113,12 @@ class DiaryController extends Controller
         }
     }
 
+    /**
+     * 删除日记
+     * @param Request $request
+     * @param Diary $diary
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function diaryDel(Request $request, Diary $diary)
     {
 

@@ -41,4 +41,9 @@ class Diary extends Model
 
     protected $table = 'diary';
 
+    public function userItem()
+    {
+        return $this->belongsTo(UserItems::class, 'user_id', 'id');
+    }
+
 }
