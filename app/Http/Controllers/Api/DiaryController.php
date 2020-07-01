@@ -96,7 +96,6 @@ class DiaryController extends Controller
     public function diaryEdit(Request $request, Diary $diary)
     {
         try {
-
             $user = $request->attributes->get('user_info');
             $diary_id = request('diary_id');
             $diary = $diary->where([
@@ -106,6 +105,7 @@ class DiaryController extends Controller
             if (empty($diary)) return api_error('修改失败，未找到您的日记');
             $diary->html = request('html');
             $diary->title = request('title');
+            $diary->public = request('public');
             $diary->update();
             return api_success('修改成功!！');
         } catch (\Exception $e) {
@@ -123,7 +123,7 @@ class DiaryController extends Controller
     {
 
         try {
-            $diary_id = request('diary_id');
+            $diary_id = request('r_id');
             $user = $request->attributes->get('user_info');
             $diary = $diary->where([
                 'id' => $diary_id,

@@ -69,7 +69,7 @@ Route::namespace('Api')->group(function (){
         Route::post('diaryEdit','DiaryController@diaryEdit');
 
         // 日记-删除
-        Route::post('diaryDel','DiaryController@diaryDel');
+        Route::get('diaryDel','DiaryController@diaryDel');
 
         // 日记-详情
         Route::post('diaryGet','DiaryController@diaryGet');
@@ -77,7 +77,8 @@ Route::namespace('Api')->group(function (){
         // 日记-列表
         Route::get('diaryList','DiaryController@diaryList');
 
-
+        // 日记-日历
+        Route::get('getDate','DateController@getDate');
 
     });
 
