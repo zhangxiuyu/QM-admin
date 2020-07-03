@@ -56,6 +56,9 @@ Route::namespace('Api')->group(function (){
     // 日记-公共详情
     Route::get('getDetail','HomeDiaryController@getDetail');
 
+    // 评论列表
+    Route::get('reviewList','TopicController@reviewList');
+
     Route::group([
         'middleware' => ['jwt']
     ], function () {
@@ -79,6 +82,15 @@ Route::namespace('Api')->group(function (){
 
         // 日记-日历
         Route::get('getDate','DateController@getDate');
+
+
+
+        // 发表评论
+        Route::post('reviewAdd','TopicController@reviewAdd');
+
+
+
+
 
     });
 

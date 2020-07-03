@@ -25,7 +25,7 @@ class DiaryController extends Controller
         $user = $request->attributes->get('user_info');
 
         // 这里要分页，先获取时间列表
-        $diaryList = DB::select("SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as date from  diary where user_id = {$user->id} AND deleted_at IS NULL  GROUP BY  DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY date desc");
+        $diaryList = DB::select("SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as date from  diary where user_id = {$user->id} AND deleted_at IS NULL  GROUP BY  DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY DATE_FORMAT(created_at,'%Y-%m-%d') desc");
 
 
         // 总页数
