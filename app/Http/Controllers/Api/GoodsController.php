@@ -13,7 +13,7 @@ class GoodsController extends Controller
 
     private $cache_time = 10; // 缓存时间
 
-    private $add_prices = 65; // 加的金额
+    private $add_prices = 45; // 加的金额
 
     public function getHomeGoods(Goods $goods)
     {
@@ -88,7 +88,7 @@ class GoodsController extends Controller
                 ];
             }
             $data['img'] = $img;
-//            $data['div'] = "<span style='color: orange'> 想要这个手办吗？ 请点击 《我的》->《联系秀秀》".$data['div'];
+            $data['div'] = "<span style='color: orange'> 想要这个手办吗？ 请点击 《我的》->《联系秀秀》".$data['div'];
             return $data;
         });
 
@@ -115,8 +115,8 @@ class GoodsController extends Controller
                         'goods_id' => $var['id'],
                         'name' => $var['name'],
                         'price' => $var['prices'],
-                        'slogan' => '',
-//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+//                        'slogan' => '',
+                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
                         'img' => !empty($var['pictures'][0])?getImg($var['pictures'][0]):'',
                     ];
                 }
@@ -137,8 +137,8 @@ class GoodsController extends Controller
                         'goods_id' => $var['id'],
                         'name' => $var['name'],
                         'price' => $var['prices'],
-                        'slogan' => '',
-//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+//                        'slogan' => '',
+                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
                         'img' => !empty($var['pictures'][0])?getImg($var['pictures'][0]):'',
                     ];
                 }
@@ -167,8 +167,8 @@ class GoodsController extends Controller
                         'goods_id' => $var->id,
                         'name' => $var->name,
                         'price' => $var->prices,
-                        'slogan' => '',
-//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+//                        'slogan' => '',
+                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
                         'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
                     ];
                 }
@@ -187,8 +187,8 @@ class GoodsController extends Controller
                         'goods_id' => $var->id,
                         'name' => $var->name,
                         'price' => $var->prices,
-                        'slogan' => '',
-//                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+//                        'slogan' => '',
+                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
                         'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
                     ];
                 }
@@ -215,8 +215,8 @@ class GoodsController extends Controller
                 'goods_id' => $var->id,
                 'name' => $var->name,
                 'price' => $var->prices,
-                'slogan' => '',
-//                'slogan' => '指导价：'.($var->prices + $this->add_prices),
+//                'slogan' => '',
+                'slogan' => '指导价：'.($var->prices + $this->add_prices),
                 'img' => !empty($var->pictures[0])?getImg($var->pictures[0]):'',
             ];
         }

@@ -22,13 +22,16 @@ class TopicController extends Controller
             'huid' => null
         ])->paginate($per_page);
         $list = [];
+
+
+        // 关联用户 对象
         foreach ($topicList as $value){
             $list[] = [
               'post_id' => $value->id
             ];
         }
         $lists['lists'] = $list;
-        $lists['total'] = ceil($topicList->total / $per_page);
+        $lists['total'] = ceil($topicList->total() / $per_page);
 
         return api_success('',$lists);
     }

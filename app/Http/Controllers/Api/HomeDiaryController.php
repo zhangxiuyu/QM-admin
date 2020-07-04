@@ -31,7 +31,7 @@ class HomeDiaryController extends Controller
         }
 
         $lists['lists'] = $list['data'];
-        $lists['total'] = $list['total'];
+        $lists['total'] = ceil($list['total']/$par_page);
 
         return api_success('',$lists);
     }
