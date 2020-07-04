@@ -116,7 +116,7 @@ class GoodsController extends Controller
                         'name' => $var['name'],
                         'price' => $var['prices'],
 //                        'slogan' => '',
-                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+                        'slogan' => '指导价：'.($var['prices'] + $this->add_prices),
                         'img' => !empty($var['pictures'][0])?getImg($var['pictures'][0]):'',
                     ];
                 }
@@ -138,7 +138,7 @@ class GoodsController extends Controller
                         'name' => $var['name'],
                         'price' => $var['prices'],
 //                        'slogan' => '',
-                        'slogan' => '指导价：'.($var->prices + $this->add_prices),
+                        'slogan' => '指导价：'.($var['prices'] + $this->add_prices),
                         'img' => !empty($var['pictures'][0])?getImg($var['pictures'][0]):'',
                     ];
                 }
