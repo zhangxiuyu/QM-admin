@@ -88,6 +88,8 @@ Route::namespace('Api')->group(function (){
         // 发表评论
         Route::post('reviewAdd','TopicController@reviewAdd');
 
+        // 点赞评论
+        Route::post('hit','TopicHitController@hit');
 
 
 

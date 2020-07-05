@@ -60,13 +60,23 @@ class UserItems  extends Authenticatable implements JWTSubject
     }
 
 
-    // 日记
+    // 关联日记
     public function LiveChat()
     {
         return $this->hasMany(Diary::class, "user_id", "id");
     }
 
 
+    // 关联评论表
+    public function Topic()
+    {
+        return $this->hasMany(Topic::class, "uid", "id");
+    }
 
+    // 关联评论点赞表
+    public function TopicHit()
+    {
+        return $this->hasMany(TopicHit::class, "uid", "id");
+    }
 
 }

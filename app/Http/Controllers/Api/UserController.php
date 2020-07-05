@@ -97,7 +97,10 @@ class UserController extends Controller
                 $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
 
                 $token = JWTAuth::encode($payload)->get();
-                return api_success('注册成功！',$token);
+                return api_success('注册成功！',[
+                    'token' => $token,
+                    'user_id' => $useritems->id
+                ]);
             }
 
         }catch (\Exception $e){
