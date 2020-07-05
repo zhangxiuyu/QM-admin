@@ -22,7 +22,7 @@ class HomeDiaryController extends Controller
     public function indexList(Diary $diary)
     {
         $page = request("page");
-        $lists = Cache::remember('HomeDiary_indexList' . $page, $this->cache_time, function () use ($diary) {
+        $lists = Cache::remember('HomeDiary_indexList_' . $page, $this->cache_time, function () use ($diary) {
             $par_page = request('par_page', 5);
             $diary = $diary->where([
                 'public' => 1,
