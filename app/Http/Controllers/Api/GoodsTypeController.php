@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class GoodsTypeController extends Controller
 {
-    private $cache_time = 10; //缓存时间
+    private $cache_time = 2024; //缓存时间
 
     public function getGoodsType(GoodsType $goodsType)
     {

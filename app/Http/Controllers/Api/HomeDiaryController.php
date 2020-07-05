@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 class HomeDiaryController extends Controller
 {
 
-    private $cache_time = 20; // 缓存时间
+    private $cache_time = 2024; // 缓存时间
 
     /**
      * 首页公开的日记

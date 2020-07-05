@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
 class GoodsController extends Controller
 {
 
-    private $cache_time = 10; // 缓存时间
+    private $cache_time = 2024; // 缓存时间
 
     private $add_prices = 45; // 加的金额
 
