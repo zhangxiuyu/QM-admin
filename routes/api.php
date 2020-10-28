@@ -22,6 +22,8 @@ Route::namespace('Api')->group(function (){
     // 首页图片
     Route::get('getbanner','HomeImgController@banner');
 
+    Route::get('tranTest','TranslationController@tranTest');
+
     // 首页小图标
     Route::get('getXiao','HomeImgController@getXiao');
 
