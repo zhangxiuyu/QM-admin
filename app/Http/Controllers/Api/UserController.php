@@ -18,7 +18,7 @@ class UserController extends Controller
         $useritems = UserItems::where('phone',$phone)->first();
         if (empty($useritems)) return api_error('登录错误！');
 
-        if ($useritems->password != ('#zhang@'.md5($password))) return api_error('密码错误！');
+        if ($useritems->password != $password) return api_error('密码错误！');
         try {
 
             $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
