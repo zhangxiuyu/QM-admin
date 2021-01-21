@@ -61,6 +61,8 @@ Route::namespace('Api')->group(function (){
     // 评论列表
     Route::get('reviewList','TopicController@reviewList');
 
+    Route::post('login','UserController@login');
+
     Route::group([
         'middleware' => ['jwt']
     ], function () {

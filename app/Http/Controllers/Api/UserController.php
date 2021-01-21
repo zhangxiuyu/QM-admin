@@ -11,6 +11,30 @@ use Tymon\JWTAuth\Facades\JWTFactory;
 class UserController extends Controller
 {
 
+    public function login()
+    {
+        $phone = request('phone');
+        $password = request('password');
+        $useritems = UserItems::where('phone',$phone)->first();
+        if (empty($useritems)) return api_error('登录错误！');
+
+        if ($useritems->password != ('#zhang@'.md5($password))) return api_error('密码错误！');
+        try {
+
+            $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
+
+            $token = JWTAuth::encode($payload)->get();
+            unset($useritems->password);
+            return api_success('登录成功！', [
+                'token' => $token,
+                'user' => $useritems
+            ]);
+
+        } catch (\Exception $e) {
+            return api_error('登陆失败！');
+        }
+    }
+
 
     /**
      *  手办项目用户
@@ -35,24 +59,24 @@ class UserController extends Controller
 
         // 获取用户openid
         $codeSession_url = "https://api.weixin.qq.com/sns/jscode2session?appid={$appId}&secret={$appSecret}&js_code={$code}&grant_type=authorization_code";
-        $codeSession_array = get_curl($codeSession_url,[]);
-        $openid = !empty($codeSession_array['openid'])?$codeSession_array['openid']:'';
+        $codeSession_array = get_curl($codeSession_url, []);
+        $openid = !empty($codeSession_array['openid']) ? $codeSession_array['openid'] : '';
 
         try {
-        if (!empty($openid)){
-            // 创建用户
-            $useritems = UserItems::firstOrCreate(['openid'=> $openid],[
-                'openid' => $openid,
-                'username' => $username,
-                'avatar' => $avatar,
-            ]);
-            $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
+            if (!empty($openid)) {
+                // 创建用户
+                $useritems = UserItems::firstOrCreate(['openid' => $openid], [
+                    'openid' => $openid,
+                    'username' => $username,
+                    'avatar' => $avatar,
+                ]);
+                $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
 
-            $token = JWTAuth::encode($payload)->get();
-            return api_success('注册成功！',$token);
-        }
+                $token = JWTAuth::encode($payload)->get();
+                return api_success('注册成功！', $token);
+            }
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return api_error('注册失败！');
         }
 
@@ -83,13 +107,13 @@ class UserController extends Controller
 
         // 获取用户openid
         $codeSession_url = "https://api.weixin.qq.com/sns/jscode2session?appid={$appId}&secret={$appSecret}&js_code={$code}&grant_type=authorization_code";
-        $codeSession_array = get_curl($codeSession_url,[]);
-        $openid = !empty($codeSession_array['openid'])?$codeSession_array['openid']:'';
+        $codeSession_array = get_curl($codeSession_url, []);
+        $openid = !empty($codeSession_array['openid']) ? $codeSession_array['openid'] : '';
 
         try {
-            if (!empty($openid)){
+            if (!empty($openid)) {
                 // 创建用户
-                $useritems = UserItems::firstOrCreate(['openid'=> $openid],[
+                $useritems = UserItems::firstOrCreate(['openid' => $openid], [
                     'openid' => $openid,
                     'username' => $username,
                     'avatar' => $avatar,
@@ -97,20 +121,18 @@ class UserController extends Controller
                 $payload = JWTFactory::customClaims(['sub' => $useritems])->make();
 
                 $token = JWTAuth::encode($payload)->get();
-                return api_success('注册成功！',[
+                return api_success('注册成功！', [
                     'token' => $token,
                     'user_id' => $useritems->id
                 ]);
             }
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return api_error('注册失败！');
         }
 
 
     }
-
-
 
 
     public function userCodedata()
