@@ -19,6 +19,9 @@ use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function (){
 
+    // 图片上传
+    Route::post('upImage','UpController@upImage');
+
     // 首页图片
     Route::get('getbanner','HomeImgController@banner');
 
@@ -86,6 +89,7 @@ Route::namespace('Api')->group(function (){
 
         // 日记-日历
         Route::get('getDate','DateController@getDate');
+
 
 
 

@@ -250,3 +250,49 @@ if (!function_exists('time_ago')) {
         }
     }
 }
+/**
+ * 上传图片 返回路径
+ */
+if (!function_exists('uploadFile')) {
+    function uploadFile($file,$file_path='public') {
+        $fileextension=$file->getClientOriginalExtension();
+        $file_name=sp_random_string(10).'.'.$fileextension;
+        $path=$file->move(public_path('upload').'/'.$file_path.'/'.date('Ymd'),$file_name);
+        return ''.$file_path.'/'.date('Ymd').'/'.$file_name;
+    }
+}
+/**
+ * 获取随机字符
+ */
+if (!function_exists('sp_random_string')) {
+    function sp_random_string($len = 6) {
+        $chars = array(
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+            "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
+            "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G",
+            "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+            "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2",
+            "3", "4", "5", "6", "7", "8", "9"
+        );
+        $charsLen = count($chars) - 1;
+        shuffle($chars);    // 将数组打乱
+        $output = "";
+        for ($i = 0; $i < $len; $i++) {
+            $output .= $chars[mt_rand(0, $charsLen)];
+        }
+        return $output;
+    }
+}
+
+if (!function_exists('imgAllUrl')) {
+    function imgAllUrl($img_url=''){
+        if (empty($img_url)) return '';
+        if (substr($img_url, 0,4) == 'http'){
+            return $img_url;
+        }else if (substr($img_url, 0,1) == '/'){
+            return env('APP_URL') . '/upload'. $img_url;
+        }else{
+            return env('APP_URL') .'/upload/'. $img_url;
+        }
+    }
+}
