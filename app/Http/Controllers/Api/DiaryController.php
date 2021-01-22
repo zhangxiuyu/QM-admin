@@ -27,7 +27,6 @@ class DiaryController extends Controller
         // 这里要分页，先获取时间列表
         $diaryList = DB::select("SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as date from  diary where user_id = {$user->id} AND deleted_at IS NULL  GROUP BY  DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY DATE_FORMAT(created_at,'%Y-%m-%d') desc");
 
-
         // 总页数
         $total = ceil(count($diaryList) / $last_page);
         if ($page > $total) $page = $total;
@@ -44,10 +43,11 @@ class DiaryController extends Controller
             }
             $list[] = [
               'diary_date' => $diaryList[$i]->date,
-              'list' => Db::select("SELECT DATE_FORMAT(created_at,'%H:%i:%s') as created_at,id,title FROM diary WHERE ( datediff ( created_at ,'{$diaryList[$i]->date}') = 0 ) AND user_id = {$user->id} AND deleted_at IS NULL")
+              'list' => array_reverse(Db::select("SELECT DATE_FORMAT(created_at,'%H:%i:%s') as created_at,id,title FROM diary WHERE ( datediff ( created_at ,'{$diaryList[$i]->date}') = 0 ) AND user_id = {$user->id} AND deleted_at IS NULL "))
             ];
         }
-        $lists['lists'] = $list;
+
+        $lists['lists'] = array_reverse($list);
         $lists['total'] = $total;
 
         return api_success('',$lists);
