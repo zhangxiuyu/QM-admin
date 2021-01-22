@@ -21,6 +21,8 @@ Route::namespace('Api')->group(function (){
 
     // 图片上传
     Route::post('upImage','UpController@upImage');
+    // 头条
+    Route::post('totiao','ReptileController@index');
 
     // 首页图片
     Route::get('getbanner','HomeImgController@banner');
