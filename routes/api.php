@@ -21,6 +21,8 @@ Route::namespace('Api')->group(function (){
 
     // 图片上传
     Route::post('upImage','UpController@upImage');
+    // 版本管理
+    Route::get("version",'UpController@version');
     // 爬虫
     Route::get('pa','ReptileController@index');
 

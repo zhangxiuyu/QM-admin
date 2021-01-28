@@ -28,7 +28,8 @@ Route::group([
     // 分类
     $router->get('goodsType','GoodsTypeController@goodsType');
     $router->get('goodsTypeXiao','GoodsController@goodsTypeXiao');
-
+    //  版本管理-项目列表
+    $router->resource('versions','VersionsController');
 
 
     // 分类新增
