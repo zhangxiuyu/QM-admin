@@ -4,8 +4,89 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc7cb1d5b805c5597e41928269eb0e69",
+    "content-hash": "6896f7291c5b076ee00c6796273e1fa6",
     "packages": [
+        {
+            "name": "6tail/lunar-php",
+            "version": "1.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/6tail/lunar-php.git",
+                "reference": "e5d45679009097627ccfce55d5b874bb09bca6f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/6tail/lunar-php/zipball/e5d45679009097627ccfce55d5b874bb09bca6f2",
+                "reference": "e5d45679009097627ccfce55d5b874bb09bca6f2",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "com\\nlf\\calendar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "6tail",
+                    "email": "6tail@6tail.cn",
+                    "homepage": "http://6tail.cn"
+                }
+            ],
+            "description": "lunar is a calendar library for Solar and Chinese Lunar.",
+            "homepage": "https://github.com/6tail/lunar-php",
+            "keywords": [
+                "calendar",
+                "lunar",
+                "solar",
+                "五行",
+                "儒略日",
+                "八字",
+                "冲煞",
+                "凶煞宜忌",
+                "十神",
+                "吉神宜趋",
+                "喜神",
+                "干支",
+                "建除十二值星",
+                "彭祖百忌",
+                "时辰宜忌",
+                "星宿",
+                "星座",
+                "每日宜忌",
+                "生肖",
+                "福神",
+                "纳音",
+                "胎神",
+                "节假日",
+                "节日",
+                "节气",
+                "财神",
+                "阳贵神",
+                "阴贵神",
+                "青龙名堂等十二神",
+                "黄道黑道日"
+            ],
+            "support": {
+                "issues": "https://github.com/6tail/lunar-php/issues",
+                "source": "https://github.com/6tail/lunar-php/tree/1.1.8"
+            },
+            "time": "2021-01-18T09:39:07+00:00"
+        },
         {
             "name": "cache/adapter-common",
             "version": "1.2.0",

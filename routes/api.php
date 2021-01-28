@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function (){
 
+    // 农历信息
+    Route::get('getCalendar','CalendarController@getCalendar');
     // 图片上传
     Route::post('upImage','UpController@upImage');
     // 版本管理

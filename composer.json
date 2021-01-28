@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "6tail/lunar-php": "^1.1",
         "codingyu/laravel-ueditor": "~2.0",
         "codingyu/ueditor": "^3.0",
         "encore/laravel-admin": "^1.8",
