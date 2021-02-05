@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use com\nlf\calendar\Lunar;
+use com\nlf\calendar\Solar;
 
 class CalendarController extends Controller
 {
@@ -17,7 +18,10 @@ class CalendarController extends Controller
         $month = (int)request('month');
         $day = (int)request('day');
 
-        $lunar = Lunar::fromYmd($year, $month, $day);
+        $solar  = Solar::fromYmd($year, $month, $day);
+        $lunar = $solar->getLunar();
+//        $lunar = Lunar::fromYmd($year, $month, $day);
+
         $yi  =  $ji  = $js = $xs = '';
         foreach ($lunar->getDayYi() as $va){
             $yi .= $va . ' ';
