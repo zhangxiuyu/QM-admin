@@ -30,17 +30,17 @@ class ReptileController extends Controller
             $tags_data[$va['id']] = $va['name'];
         }
 
-        $articles = Articles::query()->whereRaw("id in (select article_id from bjy_article_tags where tag_id = 8)")->get();
+        $articles = Articles::query()->whereRaw("id not in(select article_id from bjy_article_tags)")->get();
         foreach ($articles as $article){
 //            $data[] = $article->title;
 ////
-//            $tags_id = $this->TagsData($article->title,$tags_data);
-//            $articleTags = new ArticleTags();
-//            $articleTags->article_id = $article->id;
-//            $articleTags->tag_id = $tags_id;
-//            $articleTags->save();
-//            $article->category_id = 4;
-//            $article->save();
+            $tags_id = $this->TagsData($article->title,$tags_data);
+            $articleTags = new ArticleTags();
+            $articleTags->article_id = $article->id;
+            $articleTags->tag_id = $tags_id;
+            $articleTags->save();
+            $article->category_id = 4;
+            $article->save();
 
 
         }

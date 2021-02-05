@@ -15,7 +15,7 @@ class CalendarController extends Controller
     {
         $year = request('year');
         $month = request('month');
-        $day = request('day');
+        $day = (int)request('day');
 
         $lunar = Lunar::fromYmd($year, $month, $day);
         $yi  =  $ji  = $js = $xs = '';
