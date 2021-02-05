@@ -14,7 +14,7 @@ class CalendarController extends Controller
     public function getCalendar()
     {
         $year = request('year');
-        $month = request('month');
+        $month = (int)request('month');
         $day = (int)request('day');
 
         $lunar = Lunar::fromYmd($year, $month, $day);
