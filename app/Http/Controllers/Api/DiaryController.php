@@ -21,7 +21,7 @@ class DiaryController extends Controller
     public function diaryList(Request $request,Diary $diary)
     {
         $page = request('page',1);
-        $last_page = request('last_page',3); // 获取两天的
+        $last_page = request('last_page',100); // 获取两天的
         $user = $request->attributes->get('user_info');
 
         // 这里要分页，先获取时间列表
