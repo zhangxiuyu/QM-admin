@@ -25,6 +25,8 @@ Route::namespace('Api')->group(function (){
     Route::post('upImage','UpController@upImage');
     // 版本管理
     Route::get("version",'UpController@version');
+    // git pull 博客系统
+    Route::post("git_pull",'UpController@git_pull');
     // 爬虫
     Route::get('pa','ReptileController@index');
 
