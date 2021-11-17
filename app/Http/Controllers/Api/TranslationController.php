@@ -94,7 +94,7 @@ class TranslationController extends Controller
         $googleresult = $translate->driver('google')->translate($text, $th, $to);
         $baiduresult = $translate->driver('baidu')->translate($text, $th, $to);
         $youdaoresult = $translate->driver('youdao')->translate($text, $th, $to);
-        $jinshanresult = $translate->driver('jinshan')->translate($text, $th, $to);
+        //$jinshanresult = $translate->driver('jinshan')->translate($text, $th, $to);
 
 
         $client = new Client(['base_uri' => 'https://w.qianyix.com/']);
@@ -109,7 +109,9 @@ class TranslationController extends Controller
             'google' => $googleresult->getDst(),
             'baidu' => $baiduresult->getDst(),
             'youdao' => empty($youdaoresult->getDst()[0])?'':$youdaoresult->getDst()[0],
-            'jinshan' => $jinshanresult->getDst(),
+//            'jinshan' => $jinshanresult->getDst(),
+                        'jinshan' => "",
+
             'qianci' => $client->getBody()->getContents(),
         ]);
 //        var_dump($result->getSrc());
