@@ -27,6 +27,10 @@ Route::namespace('Api')->group(function (){
     Route::get("version",'UpController@version');
     // git pull 博客系统
     Route::post("git_pull",'UpController@git_pull');
+    // git pull 文彬 博客系统
+    Route::post("wenbin_git_pull",'UpController@wenbin_git_pull');
+    // 向百度推送网站
+    Route::get("push_baidu",'UpController@push_baidu');
     // 爬虫
     Route::get('pa','ReptileController@index');
 
